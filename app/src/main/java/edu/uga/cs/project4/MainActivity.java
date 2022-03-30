@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             /**
              * Creating a new intent to start the new activity for the button.
              */
-            //Intent intent = new Intent( view.getContext(),viewResults.class );
+            //Intent intent = new Intent( view.getContext(),viewQuizResultsActivity.class );
             //startActivity( intent );
         }
     }

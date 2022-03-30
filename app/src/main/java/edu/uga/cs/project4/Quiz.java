@@ -7,7 +7,7 @@ import java.util.Date;
 public class Quiz {
 
     private long id;
-    private Question[] questionArray;
+    private String[] questionArray;
     private long score;
     private String time;
 
@@ -16,9 +16,9 @@ public class Quiz {
 
         for (int i = 0; i < 6; i++) {
             // for loop to set questions, need to get a random country
-            // Country country =
+            // Country country = new Country
             //Question question = new Question();
-            // questionArray[i] = question;
+            // questionArray[i] = question.toString();
         }
 
         // set score like this until it can be calculated somehow
