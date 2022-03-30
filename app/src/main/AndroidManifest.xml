@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project4">
         <activity
+            android:name=".ViewQuizResultsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewQuizResultsActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
