@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private class startButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick( View view ) {
-            Log.i(TAG, "Start quiz button has been pressed. ");
+            Log.i(TAG, "Start quiz button has been pressed.");
 
             /**
              * Creating a new intent to start the new activity for the button.
