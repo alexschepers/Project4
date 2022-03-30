@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.338" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/startQuiz"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:text="Start Quiz"
@@ -30,7 +30,7 @@
         tools:layout_editor_absoluteY="411dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/viewResults"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="View Past Quizzes"
@@ -38,7 +38,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/startQuiz" />
 
     <TextView
         android:id="@+id/textView"
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="76dp"
         android:text="Rules"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/startQuiz"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
