@@ -14,7 +14,7 @@ public class Country {
     private String name;
     private String continent;
 
-    public Country() {
+    public Country(String name) {
         this.id = -1;
         this.name = null;
         this.continent = null;

@@ -53,7 +53,7 @@ public class CountryData {
     // This is how we restore persistent objects stored as rows in the job leads table in the database.
     // For each retrieved row, we create a new JobLead (Java POJO object) instance and add it to the list.
     public List<Country> retrieveAllJobLeads() {
-        ArrayList<Country> jobLeads = new ArrayList<>();
+        ArrayList<Country> countries = new ArrayList<>();
         Cursor cursor = null;
         int columnIndex;
 
@@ -80,7 +80,7 @@ public class CountryData {
                         Country country = new Country(name);
                         country.setId(id); // set the id (the primary key) of this object
                         // add it to the list
-                        jobLeads.add( country );
+                        countries.add( country );
                         Log.d(DEBUG_TAG, "Retrieved JobLead: " + country);
                     }
                 }
@@ -100,18 +100,18 @@ public class CountryData {
             }
         }
         // return a list of retrieved job leads
-        return jobLeads;
+        return countries;
     }
 
     // Store a new job lead in the database.
-    public Country storeJobLead( Country country ) {
+    public Country storeCountry( Country country ) {
 
         // Prepare the values for all of the necessary columns in the table
         // and set their values to the variables of the JobLead argument.
         // This is how we are providing persistence to a JobLead (Java object) instance
         // by storing it as a new row in the database table representing job leads.
         ContentValues values = new ContentValues();
-        values.put( CountryDBHelper.COUNTRIES_COLUMN_NAME, country.getCompanyName());
+        values.put( CountryDBHelper.COUNTRIES_COLUMN_NAME, country.getName());
 
 
         // Insert the new row into the database table;
