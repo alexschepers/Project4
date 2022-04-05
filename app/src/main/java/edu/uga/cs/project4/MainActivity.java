@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick( View view ) {
             Log.i(TAG, "Start quiz button has been pressed.");
+            List<Country> countryList = CountryData.retrieveAllCountries();
             Random rand= new Random();
             int upperbound = 196;
             int quizCountryNum[] = {};
@@ -51,16 +53,15 @@ public class MainActivity extends AppCompatActivity {
                 quizCountryNum[i] = rand.nextInt(upperbound);
                 //read from data table and place country with id that matches the randomly generated number into the countryQuestion array
                 //when quiz starts, pull country from array and insert into question
-                if() {
-                    countryQuestion[i] = "";
-                }
+                countryQuestion[i] = String.valueOf(countryList.get(quizCountryNum[i]));
+
             }
 
             /**
              * Creating a new intent to start the new activity for the button.
              */
-            //Intent intent = new Intent( view.getContext(),startQuiz.class );
-           //startActivity( intent );
+            Intent intent = new Intent( view.getContext(),StartQuiz.class );
+            startActivity( intent );
         }
     }
 
