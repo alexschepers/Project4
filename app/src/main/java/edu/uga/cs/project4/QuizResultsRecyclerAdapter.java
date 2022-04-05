@@ -15,10 +15,10 @@ public class QuizResultsRecyclerAdapter extends RecyclerView.Adapter<QuizResults
 
     public static final String DEBUG_TAG = "CountryRecyclerAdapter";
 
-    private List<Country> countryList;
+    private List<Quiz> quizList;
 
-    public QuizResultsRecyclerAdapter(List<Quiz> countryList ) {
-        this.countryList = countryList;
+    public QuizResultsRecyclerAdapter(List<Quiz> quizList ) {
+        this.quizList = quizList;
     }
 
     // The adapter must have a ViewHolder class to "hold" one item to show.

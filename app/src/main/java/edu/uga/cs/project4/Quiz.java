@@ -1,29 +1,18 @@
 package edu.uga.cs.project4;
 
-import java.security.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Quiz {
 
     private long id;
-    private String[] questionArray;
     private long score;
     private String time;
 
     public Quiz() {
         this.id = -1;  // the primary key id will be set by a setter method
-
-        for (int i = 0; i < 6; i++) {
-            // for loop to set questions, need to get a random country
-            // Country country = new Country;
-            //Question question = new Question();
-            // questionArray[i] = question.toString();
-        }
-
-        // set score like this until it can be calculated somehow
         this.score = -1;
-        setTime();
+        time = setTime();
     }
 
     public long getId() {
@@ -34,11 +23,6 @@ public class Quiz {
         this.id = id;
     }
 
-    public Question[] getQuestions() {
-        return questionArray;
-    }
-
-
     public long getScore() {
         return score;
     }
@@ -48,10 +32,11 @@ public class Quiz {
         this.score = score;
     }
 
-    public void setTime() {
+    public String setTime() {
         SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd.HH:mm:ss");
         String timeStamp = date.format(new Date());
         this.time = timeStamp;
+        return timeStamp;
     }
 
 }
