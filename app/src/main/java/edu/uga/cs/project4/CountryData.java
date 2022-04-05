@@ -69,19 +69,19 @@ public class CountryData {
 
                     if( cursor.getColumnCount() >= 5) {
 
-                        // get all attribute values of this job lead
+                        // get all attribute values of this country
                         columnIndex = cursor.getColumnIndex( CountryDBHelper.COUNTRIES_COLUMN_ID );
                         long id = cursor.getLong( columnIndex );
                         columnIndex = cursor.getColumnIndex( CountryDBHelper.COUNTRIES_COLUMN_NAME );
                         String name = cursor.getString( columnIndex );
                         String comments = cursor.getString( columnIndex );
 
-                        // create a new JobLead object and set its state to the retrieved values
+                        // create a new Country object and set its state to the retrieved values
                         Country country = new Country(name);
                         country.setId(id); // set the id (the primary key) of this object
                         // add it to the list
                         countries.add( country );
-                        Log.d(DEBUG_TAG, "Retrieved JobLead: " + country);
+                        Log.d(DEBUG_TAG, "Retrieved Country: " + country);
                     }
                 }
             }
@@ -99,11 +99,11 @@ public class CountryData {
                 cursor.close();
             }
         }
-        // return a list of retrieved job leads
+        // return a list of retrieved countries
         return countries;
     }
 
-    // Store a new job lead in the database.
+    // Store a new country in the database.
     public Country storeCountry( Country country ) {
 
         // Prepare the values for all of the necessary columns in the table
@@ -122,7 +122,7 @@ public class CountryData {
         // store the id (the primary key) in the JobLead instance, as it is now persistent
         country.setId( id );
 
-        Log.d( DEBUG_TAG, "Stored new job lead with id: " + String.valueOf( country.getId() ) );
+        Log.d( DEBUG_TAG, "Stored new country with id: " + String.valueOf( country.getId() ) );
 
         return country;
     }

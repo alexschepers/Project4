@@ -16,7 +16,7 @@ public class Quiz {
 
         for (int i = 0; i < 6; i++) {
             // for loop to set questions, need to get a random country
-            // Country country = new Country
+            // Country country = new Country;
             //Question question = new Question();
             // questionArray[i] = question.toString();
         }

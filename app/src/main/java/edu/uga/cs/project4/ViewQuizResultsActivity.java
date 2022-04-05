@@ -90,9 +90,9 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
         // It will be automatically invoked by Android, when we call the execute method
         // in the onClick listener of the Save button.
         @Override
-        protected Country doInBackground( Country... jobLeads ) {
-            countryData.storeCountry( jobLeads[0] );
-            return jobLeads[0];
+        protected Country doInBackground( Country... countries ) {
+            countryData.storeCountry( countries[0] );
+            return countries[0];
         }
 
         // This method will be automatically called by Android once the writing to the database
