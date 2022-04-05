@@ -8,6 +8,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.opencsv.CSVReader;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -25,8 +31,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        List<Country> countryList = CountryData.retrieveAllCountries();
+
+        try {
+            InputStream in_s = getAssets().open("country_continent.csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        List<String> countryNames = new ArrayList<String>();
+        CSVReader reader = new CSVReader(new InputStreamReader());
+
+        while( reader.readNext() != null) {
+
+        }
+
+        /*
         Random rand= new Random();
+
         int upperbound = 196;
         int quizCountryNum[] = {};
         String countryQuestion[] ={};
@@ -36,11 +57,14 @@ public class MainActivity extends AppCompatActivity {
             //when quiz starts, pull country from array and insert into question
             countryQuestion[i] = String.valueOf(countryList.get(quizCountryNum[i]));
         }
+        */
+
         /**
          * Adds functionality to the buttons.
          */
         startQuizButton  = findViewById(R.id.startQuiz);
-        //startQuizButton.setOnClickListener( new startButtonClickListener());
+        startQuizButton.setOnClickListener( new startButtonClickListener());
+
         viewResultsButton = findViewById(R.id.viewResults);
         //viewResultsButton.setOnClickListener( new resultsButtonClickListener());
 
