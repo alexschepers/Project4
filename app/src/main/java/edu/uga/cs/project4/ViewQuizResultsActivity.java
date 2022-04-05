@@ -18,9 +18,8 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private QuizResultsRecyclerAdapter recyclerAdapter;
 
-    private CountryData countryData = null;
+    private QuizData quizData = null;
     private List<Quiz> quizResultsList = null;
-    private List<Country> countryList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,32 +40,32 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
         // Note that even though more activites may create their own instances of the JobLeadsData
         // class, we will be using a single instance of the JobLeadsDBHelper object, since
         // that class is a singleton class.
-        countryData = new CountryData( this );
+        quizData = new QuizData( this );
 
         // Open that database for reading of the full list of job leads.
         // Note that onResume() hasn't been called yet, so the db open in it
         // was not called yet!
-        countryData.open();
+        quizData.open();
 
         // Execute the retrieval of the job leads in an asynchronous way,
         // without blocking the main UI thread.
-        new CountryDBReader().execute();
+        new QuizDBReader().execute();
 
     }
 
     // This is an AsyncTask class (it extends AsyncTask) to perform DB reading of countries, asynchronously.
-    private class CountryDBReader extends AsyncTask<Void, List<Country>> {
+    private class QuizDBReader extends AsyncTask<Void, List<Quiz>> {
         // This method will run as a background process to read from db.
         // It returns a list of retrieved JobLead objects.
         // It will be automatically invoked by Android, when we call the execute method
         // in the onCreate callback (the job leads review activity is started).
         @Override
-        protected List<Country> doInBackground( Void... params ) {
-            List<Country> countryList = countryData.retrieveAllCountries();
+        protected List<Quiz> doInBackground( Void... params ) {
+            List<Quiz> quizList = quizData.retrieveAllQuizzes();
 
             //Log.d( DEBUG_TAG, "JobLeadDBReaderTask: Job leads retrieved: " + jobLeadsList.size() );
 
-            return countryList;
+            return quizList;
         }
 
         // This method will be automatically called by Android once the db reading
@@ -74,25 +73,25 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
         // values for the RecyclerView.
         // onPostExecute is like the notify method in an asynchronous method call discussed in class.
         @Override
-        protected void onPostExecute( List<Country> jList ) {
+        protected void onPostExecute( List<Quiz> jList ) {
             //recyclerAdapter = new JobLeadRecyclerAdapter( jList );
             //recyclerView.setAdapter( recyclerAdapter );
             Log.d( DEBUG_TAG, "jList.size(): " + jList.size() );
-            countryList.addAll(jList);
+            quizResultsList.addAll(jList);
             recyclerAdapter.notifyDataSetChanged();
         }
     }
 
     // This is an AsyncTask class (it extends AsyncTask) to perform DB writing of a job lead, asynchronously.
-    public class JobLeadDBWriter extends AsyncTask<Country, Country> {
+    public class QuizDBWriter extends AsyncTask<Quiz, Quiz> {
 
         // This method will run as a background process to write into db.
         // It will be automatically invoked by Android, when we call the execute method
         // in the onClick listener of the Save button.
         @Override
-        protected Country doInBackground( Country... countries ) {
-            countryData.storeCountry( countries[0] );
-            return countries[0];
+        protected Quiz doInBackground( Quiz... quizzes ) {
+            quizData.storeQuiz( quizzes[0] );
+            return quizzes[0];
         }
 
         // This method will be automatically called by Android once the writing to the database
@@ -100,12 +99,12 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
         // That object will be passed as argument to onPostExecute.
         // onPostExecute is like the notify method in an asynchronous method call discussed in class.
         @Override
-        protected void onPostExecute( Country country ) {
+        protected void onPostExecute( Quiz quiz ) {
             // Update the recycler view to include the new job lead
-            countryList.add( country );
-            recyclerAdapter.notifyItemInserted(countryList.size() - 1);
+            quizResultsList.add( quiz );
+            recyclerAdapter.notifyItemInserted(quizResultsList.size() - 1);
 
-            Log.d( DEBUG_TAG, "Job lead saved: " + country );
+            Log.d( DEBUG_TAG, "Quiz saved: " + quiz );
         }
     }
 
@@ -123,8 +122,8 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
     protected void onResume() {
         Log.d( DEBUG_TAG, "ReviewJobLeadsActivity.onResume()" );
         // open the database in onResume
-        if( countryData != null && !countryData.isDBOpen() )
-            countryData.open();
+        if( quizData != null && !quizData.isDBOpen() )
+            quizData.open();
         super.onResume();
     }
 
@@ -132,8 +131,8 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
     protected void onPause() {
         Log.d( DEBUG_TAG, "ReviewJobLeadsActivity.onPause()" );
         // close the database in onPause
-        if( countryData != null )
-            countryData.close();
+        if( quizData != null )
+            quizData.close();
         super.onPause();
     }
 }

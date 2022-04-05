@@ -10,6 +10,13 @@ public class Quiz {
     private Question[] questions;
     private String time;
 
+    public Quiz() {
+        this.id = -1;
+        this.score = -1;
+        this.questions = null;
+        this.time = null;
+    }
+
     public Quiz(Question[] questions) {
         this.id = -1;  // the primary key id will be set by a setter method
         this.score = -1;

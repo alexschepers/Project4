@@ -55,6 +55,8 @@ public class Question {
             returnString = continentArray[rand];
         }
 
+        // bug here because getWrongAnswer() could result in the same wrong answer option.
+        // need to think of a way to ensure two different wrong answer options.
         return returnString;
     }
 
