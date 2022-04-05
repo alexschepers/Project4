@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:layout_marginBottom="50dp"
         android:text="Country Quiz!"
         android:textSize="30sp" />
 
@@ -20,6 +21,8 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
         android:text="@string/purpose" />
 
     <TextView
@@ -27,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
+        android:gravity="center"
         android:text="@string/rules" />
 
     <LinearLayout

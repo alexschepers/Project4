@@ -1,10 +1,7 @@
 package edu.uga.cs.project4;
 
 /**
- * This class (a POJO) represents a single job lead, including the id, company name,
- * phone number, URL, and some comments.
- * The id is -1 if the object has not been persisted in the database yet, and
- * the db table's primary key value, if it has been persisted.
+ * This class (a POJO) represents a single country object.
  */
 
 
@@ -21,18 +18,15 @@ public class Country {
     }
 
     public Country(String name, String continent) {
-        this.id = -1;  // the primary key id will be set by a setter method
+        this.id = -1;
         this.name = name;
         this.continent = continent;
     }
 
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    public long getId(){ return id;}
+
+    public void setId(long id){this.id = id;}
 
     public String getName() {
         return name;
@@ -51,7 +45,7 @@ public class Country {
     }
 
     public String toString() {
-        return id + ": " + name + " " + continent;
+        return name + " " + continent;
     }
 
 }

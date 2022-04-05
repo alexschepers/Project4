@@ -23,10 +23,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private Button startQuizButton;
     private Button viewResultsButton;
-    String countryArray[];
     Country countryObjectArray[];
-    String continentArray[] = {"Asia", "Antarctica", "Africa", "Australia", "Europe", "North America", "South America"};
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,17 +32,14 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             InputStream in_s = getAssets().open("country_continent.csv");
-            // read the CSV data
             CSVReader reader = new CSVReader( new InputStreamReader( in_s ) );
             String[] nextRow;
             int i = 0;
-            countryArray = new String[196];
             countryObjectArray = new Country[196];
             while( ( nextRow = reader.readNext() ) != null ) {
-                Log.i("TAG", String.valueOf(nextRow));
-                countryArray[i] = String.valueOf(nextRow);
-                String countryName = countryArray[i].substring(0, countryArray[i].indexOf(","));
-                String continentName = countryArray[i].substring(countryArray[i].indexOf(",") + 1);
+                Log.i("TAG", nextRow[0] + " " + nextRow[1]);
+                String countryName = nextRow[0];
+                String continentName = nextRow[1];
                 Country newCountry = new Country(countryName, continentName);
                 countryObjectArray[i] = newCountry;
                 i++;
@@ -61,28 +55,14 @@ public class MainActivity extends AppCompatActivity {
         int randomNumArray[] = new int[6];
         for (int i = 0; i < randomNumArray.length; i++) {
             randomNumArray[i] = randomNum.nextInt(upper);
-            //Question newQuestion = new Question(countryObjectArray[randomNumArray[i]]);
-            //questionArray[i] = newQuestion;
+            Question newQuestion = new Question(countryObjectArray[randomNumArray[i]]);
+            Log.i("TAG", newQuestion.toString() + " " + newQuestion.getCorrectAnswer());
+            Log.i("TAG", newQuestion.getWrongAnswerOne());
+            Log.i("TAG", newQuestion.getWrongAnswerTwo());
+            questionArray[i] = newQuestion;
         }
 
         Quiz quizToUse = new Quiz (questionArray);
-
-        //Log.assert(TAG, String.valueOf(quizToUse));
-
-
-        /*
-        Random rand= new Random();
-        int upperbound = 196;
-
-        int quizCountryNum[] = {};
-        String countryQuestion[] ={};
-        for(int i = 0; i < 6; i++){
-            quizCountryNum[i] = rand.nextInt(upperbound);
-            //read from data table and place country with id that matches the randomly generated number into the countryQuestion array
-            //when quiz starts, pull country from array and insert into question
-            countryQuestion[i] = String.valueOf(countryArray[i]);
-        }
-         */
 
 
         /**
