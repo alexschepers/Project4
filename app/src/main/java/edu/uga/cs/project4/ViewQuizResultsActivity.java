@@ -18,7 +18,9 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private QuizResultsRecyclerAdapter recyclerAdapter;
 
+    private CountryData countryData = null;
     private List<Quiz> quizResultsList = null;
+    private List<Country> countryList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,32 +41,32 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
         // Note that even though more activites may create their own instances of the JobLeadsData
         // class, we will be using a single instance of the JobLeadsDBHelper object, since
         // that class is a singleton class.
-        jobLeadsData = new JobLeadsData( this );
+        countryData = new CountryData( this );
 
         // Open that database for reading of the full list of job leads.
         // Note that onResume() hasn't been called yet, so the db open in it
         // was not called yet!
-        jobLeadsData.open();
+        countryData.open();
 
         // Execute the retrieval of the job leads in an asynchronous way,
         // without blocking the main UI thread.
-        new JobLeadDBReader().execute();
+        new CountryDBReader().execute();
 
     }
 
-    // This is an AsyncTask class (it extends AsyncTask) to perform DB reading of job leads, asynchronously.
-    private class JobLeadDBReader extends AsyncTask<Void, List<JobLead>> {
+    // This is an AsyncTask class (it extends AsyncTask) to perform DB reading of countries, asynchronously.
+    private class CountryDBReader extends AsyncTask<Void, List<Country>> {
         // This method will run as a background process to read from db.
         // It returns a list of retrieved JobLead objects.
         // It will be automatically invoked by Android, when we call the execute method
         // in the onCreate callback (the job leads review activity is started).
         @Override
-        protected List<JobLead> doInBackground( Void... params ) {
-            List<JobLead> jobLeadsList = jobLeadsData.retrieveAllJobLeads();
+        protected List<Country> doInBackground( Void... params ) {
+            List<Country> countryList = countryData.retrieveAllCountries();
 
             //Log.d( DEBUG_TAG, "JobLeadDBReaderTask: Job leads retrieved: " + jobLeadsList.size() );
 
-            return jobLeadsList;
+            return countryList;
         }
 
         // This method will be automatically called by Android once the db reading
@@ -72,24 +74,24 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
         // values for the RecyclerView.
         // onPostExecute is like the notify method in an asynchronous method call discussed in class.
         @Override
-        protected void onPostExecute( List<JobLead> jList ) {
+        protected void onPostExecute( List<Country> jList ) {
             //recyclerAdapter = new JobLeadRecyclerAdapter( jList );
             //recyclerView.setAdapter( recyclerAdapter );
             Log.d( DEBUG_TAG, "jList.size(): " + jList.size() );
-            jobLeadsList.addAll(jList);
+            countryList.addAll(jList);
             recyclerAdapter.notifyDataSetChanged();
         }
     }
 
     // This is an AsyncTask class (it extends AsyncTask) to perform DB writing of a job lead, asynchronously.
-    public class JobLeadDBWriter extends AsyncTask<JobLead, JobLead> {
+    public class JobLeadDBWriter extends AsyncTask<Country, Country> {
 
         // This method will run as a background process to write into db.
         // It will be automatically invoked by Android, when we call the execute method
         // in the onClick listener of the Save button.
         @Override
-        protected JobLead doInBackground( JobLead... jobLeads ) {
-            jobLeadsData.storeJobLead( jobLeads[0] );
+        protected Country doInBackground( Country... jobLeads ) {
+            countryData.storeCountry( jobLeads[0] );
             return jobLeads[0];
         }
 
@@ -98,20 +100,20 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
         // That object will be passed as argument to onPostExecute.
         // onPostExecute is like the notify method in an asynchronous method call discussed in class.
         @Override
-        protected void onPostExecute( JobLead jobLead ) {
+        protected void onPostExecute( Country country ) {
             // Update the recycler view to include the new job lead
-            jobLeadsList.add( jobLead );
-            recyclerAdapter.notifyItemInserted(jobLeadsList.size() - 1);
+            countryList.add( country );
+            recyclerAdapter.notifyItemInserted(countryList.size() - 1);
 
-            Log.d( DEBUG_TAG, "Job lead saved: " + jobLead );
+            Log.d( DEBUG_TAG, "Job lead saved: " + country );
         }
     }
 
     // this is our own callback for a DialogFragment which adds a new job lead.
-    public void onFinishNewJobLeadDialog(JobLead jobLead) {
-        // add the new job lead
-        new JobLeadDBWriter().execute( jobLead );
-    }
+//    public void onFinishNewJobLeadDialog(Country country) {
+//        // add the new job lead
+//        new CountryDBWriter().execute( country );
+//    }
 
     void showDialogFragment( DialogFragment newFragment ) {
         newFragment.show( getSupportFragmentManager(), null);
@@ -121,8 +123,8 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
     protected void onResume() {
         Log.d( DEBUG_TAG, "ReviewJobLeadsActivity.onResume()" );
         // open the database in onResume
-        if( jobLeadsData != null && !jobLeadsData.isDBOpen() )
-            jobLeadsData.open();
+        if( countryData != null && !countryData.isDBOpen() )
+            countryData.open();
         super.onResume();
     }
 
@@ -130,8 +132,8 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
     protected void onPause() {
         Log.d( DEBUG_TAG, "ReviewJobLeadsActivity.onPause()" );
         // close the database in onPause
-        if( jobLeadsData != null )
-            jobLeadsData.close();
+        if( countryData != null )
+            countryData.close();
         super.onPause();
     }
 }

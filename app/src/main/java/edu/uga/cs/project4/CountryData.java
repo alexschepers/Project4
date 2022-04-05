@@ -52,7 +52,7 @@ public class CountryData {
     // Retrieve all job leads and return them as a List.
     // This is how we restore persistent objects stored as rows in the job leads table in the database.
     // For each retrieved row, we create a new JobLead (Java POJO object) instance and add it to the list.
-    public List<Country> retrieveAllJobLeads() {
+    public List<Country> retrieveAllCountries() {
         ArrayList<Country> countries = new ArrayList<>();
         Cursor cursor = null;
         int columnIndex;
