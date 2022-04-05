@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project4">
         <activity
-            android:name=".StartQuiz"
+            android:name=".StartQuizActivity"
             android:exported="false" />
         <activity
             android:name=".ViewQuizResultsActivity"

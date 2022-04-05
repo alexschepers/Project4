@@ -5,21 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
 import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvValidationException;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
      */
     private Button startQuizButton;
     private Button viewResultsButton;
+    String countryArray[];
+    Country countryObjectArray[];
+    String continentArray[] = {"Asia", "Antarctica", "Africa", "Australia", "Europe", "North America", "South America"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,46 +38,52 @@ public class MainActivity extends AppCompatActivity {
             // read the CSV data
             CSVReader reader = new CSVReader( new InputStreamReader( in_s ) );
             String[] nextRow;
+            int i = 0;
+            countryArray = new String[196];
+            countryObjectArray = new Country[196];
             while( ( nextRow = reader.readNext() ) != null ) {
-
-                // nextRow[] is an array of values from the line
-                String countryArray[]={};
-                for( int i = 0; i < nextRow.length; i++ ) {
-                    countryArray[i] = String.valueOf(reader.readNext());
-                }
-
+                Log.i("TAG", String.valueOf(nextRow));
+                countryArray[i] = String.valueOf(nextRow);
+                String countryName = countryArray[i].substring(0, countryArray[i].indexOf(","));
+                String continentName = countryArray[i].substring(countryArray[i].indexOf(",") + 1);
+                Country newCountry = new Country(countryName, continentName);
+                countryObjectArray[i] = newCountry;
+                i++;
             }
         } catch (Exception e) {
             Log.e( TAG, e.toString() );
         }
 
-        List<String> countryNames = new ArrayList<String>();
+        Random randomNum = new Random();
+        int upper = 196;
 
-//
-//        while(true) {
-//            try {
-//                if (!(reader.readNext() != null)) break;
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } catch (CsvValidationException e) {
-//                e.printStackTrace();
-//            }
-//
-//        }
+        Question[] questionArray = new Question [6];
+        int randomNumArray[] = new int[6];
+        for (int i = 0; i < randomNumArray.length; i++) {
+            randomNumArray[i] = randomNum.nextInt(upper);
+            //Question newQuestion = new Question(countryObjectArray[randomNumArray[i]]);
+            //questionArray[i] = newQuestion;
+        }
+
+        Quiz quizToUse = new Quiz (questionArray);
+
+        //Log.assert(TAG, String.valueOf(quizToUse));
+
 
         /*
         Random rand= new Random();
-
         int upperbound = 196;
+
         int quizCountryNum[] = {};
         String countryQuestion[] ={};
         for(int i = 0; i < 6; i++){
             quizCountryNum[i] = rand.nextInt(upperbound);
             //read from data table and place country with id that matches the randomly generated number into the countryQuestion array
             //when quiz starts, pull country from array and insert into question
-            countryQuestion[i] = String.valueOf(countryList.get(quizCountryNum[i]));
+            countryQuestion[i] = String.valueOf(countryArray[i]);
         }
-        */
+         */
+
 
         /**
          * Adds functionality to the buttons.
@@ -103,11 +105,10 @@ public class MainActivity extends AppCompatActivity {
         public void onClick( View view ) {
             Log.i(TAG, "Start quiz button has been pressed.");
 
-
             /**
              * Creating a new intent to start the new activity for the button.
              */
-            Intent intent = new Intent( view.getContext(),StartQuiz.class );
+            Intent intent = new Intent( view.getContext(), StartQuizActivity.class );
             startActivity( intent );
         }
     }

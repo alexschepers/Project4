@@ -7,12 +7,14 @@ public class Quiz {
 
     private long id;
     private long score;
+    private Question[] questions;
     private String time;
 
-    public Quiz() {
+    public Quiz(Question[] questions) {
         this.id = -1;  // the primary key id will be set by a setter method
         this.score = -1;
         time = setTime();
+        this.questions = questions;
     }
 
     public long getId() {
