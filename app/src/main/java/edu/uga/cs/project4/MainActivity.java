@@ -39,40 +39,17 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             InputStream in_s = getAssets().open("country_continent.csv");
-            // get the TableLayout view
-            //TableLayout tableLayout = findViewById(R.id.table_main);
-
-            // set up margins for each TextView in the table layout
-            android.widget.TableRow.LayoutParams layoutParams =
-                    new TableRow.LayoutParams( TableRow.LayoutParams.WRAP_CONTENT,
-                            TableRow.LayoutParams.WRAP_CONTENT );
-            layoutParams.setMargins(20, 0, 20, 0);
-
             // read the CSV data
             CSVReader reader = new CSVReader( new InputStreamReader( in_s ) );
             String[] nextRow;
             while( ( nextRow = reader.readNext() ) != null ) {
 
                 // nextRow[] is an array of values from the line
-
-                // create the next table row for the layout
-                TableRow tableRow = new TableRow( getBaseContext() );
+                String countryArray[]={};
                 for( int i = 0; i < nextRow.length; i++ ) {
-
-                    // create a new TextView and set its text
-                    TextView textView = new TextView( getBaseContext() );
-                    // for all columns exept the SCHOOL, align right
-                    if( i != 1 )
-                        textView.setGravity(Gravity.RIGHT);
-                    textView.setText( nextRow[i] );
-
-                    // add the new TextView to the table row in the table supplying the
-                    // layout parameters
-                    tableRow.addView( textView, layoutParams );
+                    countryArray[i] = String.valueOf(reader.readNext());
                 }
 
-                // add the next row to the table layout
-                tableLayout.addView( tableRow );
             }
         } catch (Exception e) {
             Log.e( TAG, e.toString() );
