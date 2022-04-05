@@ -49,7 +49,7 @@ public class QuizResultsRecyclerAdapter extends RecyclerView.Adapter<QuizResults
     // The position parameter indicates the position on the list of jobs list.
     @Override
     public void onBindViewHolder( CountryHolder holder, int position ) {
-        Country country = countryList.get( position );
+        Quiz country = quizList.get( position );
 
         Log.d( DEBUG_TAG, "onBindViewHolder: " + country );
 
@@ -57,8 +57,8 @@ public class QuizResultsRecyclerAdapter extends RecyclerView.Adapter<QuizResults
 
     @Override
     public int getItemCount() {
-        if( countryList != null )
-            return countryList.size();
+        if( quizList != null )
+            return quizList.size();
         else
             return 0;
     }

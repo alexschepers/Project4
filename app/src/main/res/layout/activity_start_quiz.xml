@@ -14,12 +14,14 @@
         android:layout_marginTop="35dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:paddingLeft="55dp"
         android:text="Question" />
 
     <RadioButton
         android:id="@+id/option1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
         android:layout_marginTop="25dp"
         android:text="RadioButton" />
 
@@ -27,6 +29,7 @@
         android:id="@+id/option2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
         android:layout_marginTop="25dp"
         android:text="RadioButton" />
 
@@ -34,6 +37,19 @@
         android:id="@+id/option3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
         android:layout_marginTop="25dp"
         android:text="RadioButton" />
+
+    <EditText
+        android:id="@+id/next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="95dp"
+        android:ems="10"
+        android:gravity="clip_horizontal"
+        android:inputType="textPersonName"
+        android:paddingLeft="55dp"
+        android:text="Swipe left to move to the next question" />
 </LinearLayout>
