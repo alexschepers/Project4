@@ -18,7 +18,7 @@ public class CountryData {
     public static final String DEBUG_TAG = "CountryData";
 
     // this is a reference to our database; it is used later to run SQL commands
-    private SQLiteDatabase db;
+    private static SQLiteDatabase db;
     private SQLiteOpenHelper countryDbHelper;
     private static final String[] allColumns = {
             CountryDBHelper.COUNTRIES_COLUMN_ID,
