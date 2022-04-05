@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Project4</string>
+    <string name="purpose"> The purpose of this quiz is to test your knowledge on which continents the countries are located!</string>
+    <string name="rules"> The rules are simple. The quiz will ask you a question about what continent a country is on, and you will have three options to choose from. Only one is correct. Goodluck! </string>
 </resources>
