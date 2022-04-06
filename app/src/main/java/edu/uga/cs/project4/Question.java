@@ -48,8 +48,10 @@ public class Question {
         Random randomNum = new Random();
         int upper = continentArray.length;
         int rand = randomNum.nextInt(upper);
-        if (continentArray[rand] != correctAnswer) {
+
+        if (continentArray[rand] != correctAnswer && continentArray[rand]!= wrongAnswerOne) {
             returnString = continentArray[rand];
+            wrongAnswerOne = returnString; //this might have fixed the problem of having 2 of the same wrong answer choices
         } else {
             rand = randomNum.nextInt(upper);
             returnString = continentArray[rand];

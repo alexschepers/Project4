@@ -22,7 +22,10 @@ public class QuizData {
     private SQLiteOpenHelper quizDbHelper;
     private static final String[] allColumns = {
             QuizDBHelper.QUIZ_COLUMN_ID,
-            QuizDBHelper.QUIZ_COLUMN_NAME
+            QuizDBHelper.QUIZ_COLUMN_NAME,
+            QuizDBHelper.QUIZ_COLUMN_CONTINENT,
+            QuizDBHelper.QUIZ_COLUMN_DATE,
+            QuizDBHelper.QUIZ_COLUMN_SCORE
 
     };
 

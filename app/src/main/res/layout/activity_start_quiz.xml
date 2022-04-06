@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="25dp"
+        android:layout_marginRight="25dp"
         android:text="RadioButton" />
 
     <RadioButton
@@ -31,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="25dp"
+        android:layout_marginRight="25dp"
         android:text="RadioButton" />
 
     <RadioButton
@@ -39,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="25dp"
+        android:layout_marginRight="25dp"
         android:text="RadioButton" />
 
     <EditText
@@ -51,5 +54,6 @@
         android:gravity="clip_horizontal"
         android:inputType="textPersonName"
         android:paddingLeft="55dp"
-        android:text="Swipe left to move to the next question" />
+        android:text="Swipe left to move to the next question"
+        tools:ignore="TouchTargetSizeCheck" />
 </LinearLayout>

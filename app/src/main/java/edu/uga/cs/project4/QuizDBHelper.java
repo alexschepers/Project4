@@ -17,6 +17,7 @@ import android.util.Log;
  */
 public class QuizDBHelper extends SQLiteOpenHelper {
 
+
     private static final String DEBUG_TAG = "QuizDBHelper";
 
     private static final String DB_NAME = "quiz.db";
@@ -27,6 +28,9 @@ public class QuizDBHelper extends SQLiteOpenHelper {
     public static final String TABLE_QUIZ = "quiz";
     public static final String QUIZ_COLUMN_ID = "_id";
     public static final String QUIZ_COLUMN_NAME = "name";
+    public static final String QUIZ_COLUMN_CONTINENT = "continent";
+    public static final String QUIZ_COLUMN_DATE = "date" ;
+    public static final String QUIZ_COLUMN_SCORE = "score" ;
 
 
     // This is a reference to the only instance for the helper.
