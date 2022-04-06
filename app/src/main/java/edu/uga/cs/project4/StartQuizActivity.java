@@ -35,7 +35,7 @@ public class StartQuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_quiz);
         mActionBar = getSupportActionBar();
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), 6);
         mActionBar.setTitle(mSectionsPagerAdapter.getPageTitle(0));
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -81,7 +81,7 @@ public class StartQuizActivity extends AppCompatActivity {
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         private final int mSize;
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        public SectionsPagerAdapter(FragmentManager fm, int size) {
             super(fm);
             this.mSize = size;
         }
@@ -134,7 +134,7 @@ public class StartQuizActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.view_pager, container, false);
-            mTextView = (TextView) rootView.findViewById(R.id.section_label);
+            //mTextView = (TextView) rootView.findViewById(R.id.section_label);
             return rootView;
         }
 /*
