@@ -24,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
     private Button startQuizButton;
     private Button viewResultsButton;
     Country countryObjectArray[];
+    String questionsToString[];
+    String correctAnswerArray[];
+    String wrongAnswerOneArray[];
+    String wrongAnswerTwoArray[];
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +57,21 @@ public class MainActivity extends AppCompatActivity {
         int upper = 196;
 
         Question[] questionArray = new Question [6];
+        questionsToString = new String[6];
+        correctAnswerArray = new String[6];
+        wrongAnswerOneArray = new String[6];
+        wrongAnswerTwoArray = new String[6];
         int randomNumArray[] = new int[6];
         for (int i = 0; i < randomNumArray.length; i++) {
             randomNumArray[i] = randomNum.nextInt(upper);
             Question newQuestion = new Question(countryObjectArray[randomNumArray[i]]);
             Log.i("TAG", newQuestion.toString() + " " + newQuestion.getCorrectAnswer());
+            questionsToString[i] = newQuestion.toString();
+            correctAnswerArray[i] = newQuestion.getCorrectAnswer();
             Log.i("TAG", newQuestion.getWrongAnswerOne());
+            wrongAnswerOneArray[i] = newQuestion.getWrongAnswerOne();
             Log.i("TAG", newQuestion.getWrongAnswerTwo());
+            wrongAnswerOneArray[i] = newQuestion.getWrongAnswerTwo();
             questionArray[i] = newQuestion;
         }
 
@@ -89,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
              * Creating a new intent to start the new activity for the button.
              */
             Intent intent = new Intent( view.getContext(), StartQuizActivity.class );
+            Bundle bundle = new Bundle();
+            bundle.putStringArray("questionArray", questionsToString);
             startActivity( intent );
         }
     }
