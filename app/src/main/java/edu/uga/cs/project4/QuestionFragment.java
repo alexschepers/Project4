@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.opencsv.CSVReader;
@@ -51,6 +52,7 @@ public class QuestionFragment extends Fragment {
     private int mScore = 0;
     private int mQuestionNumber = 0;
 
+
     public QuestionFragment() {
         // Required empty public constructor
     }
@@ -59,15 +61,15 @@ public class QuestionFragment extends Fragment {
     public static QuestionFragment newInstance(int position) {
         QuestionFragment fragment = new QuestionFragment();
         Bundle args = new Bundle();
-
-
-
+        args.putInt("questionNum", position);
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_start_quiz);
 
 
     }
@@ -78,33 +80,87 @@ public class QuestionFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View rootView = inflater.inflate(R.layout.fragment_question, container, false);
-
         mQuestionView = (TextView) rootView.findViewById(R.id.quizQuestion);
-        question = getArguments().getString("question");
-        mQuestionView.setText(question);
-
         mButtonChoice1 = (RadioButton) rootView.findViewById(R.id.option1);
-        correct = getArguments().getString("correct");
-        mButtonChoice1.setText(correct);
-
         mButtonChoice2 = (RadioButton) rootView.findViewById(R.id.option2);
-        wrongAnswerOne = getArguments().getString("wrongAnswerOne");
-        mButtonChoice2.setText(wrongAnswerOne);
-
         mButtonChoice3 = (RadioButton) rootView.findViewById(R.id.option3);
-        wrongAnswerTwo = getArguments().getString("wrongAnswerTwo");
-        mButtonChoice3.setText(wrongAnswerTwo);
-
 
         return rootView;
 
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (getArguments() != null) {
+            question = getArguments().getString("question");
+            mQuestionView.setText(question);
+            Log.i("test", question);
+            correct = getArguments().getString("correct");
+            mButtonChoice1.setText(correct);
+            Log.i("test", correct);
+            wrongAnswerOne = getArguments().getString("wrongAnswerOne");
+            mButtonChoice2.setText(wrongAnswerOne);
+            Log.i("test", wrongAnswerOne);
+            wrongAnswerTwo = getArguments().getString("wrongAnswerTwo");
+            mButtonChoice3.setText(wrongAnswerTwo);
+            Log.i("test", wrongAnswerTwo);
+        }
+
+        RadioGroup radioGroup = view.findViewById(R.id.radiogroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // checkedId is the RadioButton selected
+                RadioButton rb=(RadioButton)view.findViewById(checkedId);
+
+                if (checkedId == R.id.option1 && mButtonChoice1.getText().toString().equals(correct)) {
+                    Log.i("score", "score is going up");
+                    mScore++;
+                }
+                if (checkedId == R.id.option2 && mButtonChoice2.getText().toString().equals(correct)) {
+                    Log.i("score", "score is going up");
+                    mScore++;
+                }
+                if (checkedId == R.id.option3 && mButtonChoice3.getText().toString().equals(correct)) {
+                    Log.i("score", "score is going up");
+                    mScore++;
+                }
+            }
+        });
+
+
+    }
+
+    // idea  one
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.option1:
+                if (checked && mButtonChoice1.getText().equals(correct))
+                    mScore += 1;
+                    break;
+            case R.id.option2:
+                if (checked && mButtonChoice2.getText().equals(correct))
+                    mScore += 1;
+                    break;
+            case R.id.option3:
+                if (checked && mButtonChoice3.getText().equals(correct))
+                    mScore += 1;
+                    break;
+        }
     }
 
 }
 
 class MyAdapter extends FragmentStateAdapter {
 
-    private final int mSize;
+    private final int NUM_PAGES;
 
     ArrayList<String> questionArray;
     ArrayList<String> correctAnswerArray;
@@ -117,7 +173,7 @@ class MyAdapter extends FragmentStateAdapter {
 
     public MyAdapter(FragmentActivity fm, int size) {
         super(fm);
-        this.mSize = size;
+        this.NUM_PAGES = size;
 
         try {
             InputStream in_s = fm.getAssets().open("country_continent.csv");
@@ -126,7 +182,6 @@ class MyAdapter extends FragmentStateAdapter {
             int i = 0;
             countryObjectArray = new Country[196];
             while( ( nextRow = reader.readNext() ) != null ) {
-                Log.i("TAG", nextRow[0] + " " + nextRow[1]);
                 String countryName = nextRow[0];
                 String continentName = nextRow[1];
                 Country newCountry = new Country(countryName, continentName);
@@ -148,14 +203,11 @@ class MyAdapter extends FragmentStateAdapter {
         for (int i = 0; i < randomNumArray.length; i++) {
             randomNumArray[i] = randomNum.nextInt(upper);
             Question newQuestion = new Question(countryObjectArray[randomNumArray[i]]);
-            Log.i("TAG", newQuestion.toString() + " " + newQuestion.getCorrectAnswer());
+
             questionArray.add(newQuestion.toString());
             correctAnswerArray.add(newQuestion.getCorrectAnswer());
-            Log.i("TAG", newQuestion.getWrongAnswerOne());
             wrongAnswerOneArray.add(newQuestion.getWrongAnswerOne());
-            Log.i("TAG", newQuestion.getWrongAnswerTwo());
-            wrongAnswerOneArray.add(newQuestion.getWrongAnswerTwo());
-            questionArray.add(newQuestion.toString());
+            wrongAnswerTwoArray.add(newQuestion.getWrongAnswerTwo());
         }
 
     }
@@ -166,9 +218,13 @@ class MyAdapter extends FragmentStateAdapter {
         QuestionFragment questionFragment = QuestionFragment.newInstance(position + 1);
         Bundle bundle = new Bundle();
         bundle.putString("question", questionArray.get(position));
+        Log.i("bundle", bundle.getString("question"));
         bundle.putString("correct", correctAnswerArray.get(position));
+        Log.i("bundle", bundle.getString("correct"));
         bundle.putString("wrongAnswerOne", wrongAnswerOneArray.get(position));
+        Log.i("bundle", bundle.getString("wrongAnswerOne"));
         bundle.putString("wrongAnswerTwo", wrongAnswerTwoArray.get(position));
+        Log.i("bundle", bundle.getString("wrongAnswerTwo"));
         questionFragment.setArguments(bundle);
 
         return questionFragment;
@@ -176,7 +232,7 @@ class MyAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return mSize;
+        return NUM_PAGES;
     }
 
 }

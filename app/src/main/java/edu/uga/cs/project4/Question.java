@@ -24,8 +24,8 @@ public class Question {
         this.correctAnswer = country.getContinent();
 
         // need to be changed later, just for testing purposes
-        this.wrongAnswerOne = getWrongAnswer();
-        this.wrongAnswerTwo = getWrongAnswer();
+        this.wrongAnswerOne = getFirstWrongAnswer();
+        this.wrongAnswerTwo = getSecondWrongAnswer();
     }
 
     // don't think we need these but just in case
@@ -42,23 +42,37 @@ public class Question {
         return "Name the continent on which " + this.country.getName() + " is located.";
     }
 
-    public String getWrongAnswer() {
+    public String getFirstWrongAnswer() {
         String returnString = "";
 
         Random randomNum = new Random();
         int upper = continentArray.length;
         int rand = randomNum.nextInt(upper);
 
-        if (continentArray[rand] != correctAnswer && continentArray[rand]!= wrongAnswerOne) {
+        if (continentArray[rand] != correctAnswer) {
             returnString = continentArray[rand];
-            wrongAnswerOne = returnString; //this might have fixed the problem of having 2 of the same wrong answer choices
         } else {
             rand = randomNum.nextInt(upper);
             returnString = continentArray[rand];
         }
 
-        // bug here because getWrongAnswer() could result in the same wrong answer option.
-        // need to think of a way to ensure two different wrong answer options.
+        return returnString;
+    }
+
+    public String getSecondWrongAnswer() {
+        String returnString = "";
+
+        Random randomNum = new Random();
+        int upper = continentArray.length;
+        int rand = randomNum.nextInt(upper);
+
+        if (continentArray[rand] != correctAnswer && continentArray[rand] != wrongAnswerTwo) {
+            returnString = continentArray[rand];
+        } else {
+            rand = randomNum.nextInt(upper);
+            returnString = continentArray[rand];
+        }
+
         return returnString;
     }
 

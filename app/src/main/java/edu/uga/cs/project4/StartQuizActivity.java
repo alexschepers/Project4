@@ -32,21 +32,11 @@ public class StartQuizActivity extends AppCompatActivity {
         questionFragment.setArguments(savedInstanceState);
         getSupportFragmentManager().beginTransaction().replace( android.R.id.content, questionFragment).commit();
 
-        /*
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .setReorderingAllowed(true)
-                    .add(R.id.pager, QuestionFragment.class, null)
-                    .commit();
-        }
-         */
 
         viewPager = findViewById(R.id.pager);
         MyAdapter myPagerAdapter = new MyAdapter(this, 6);
         viewPager.setAdapter(myPagerAdapter);
 
-
-
-
     }
+
 }
