@@ -34,29 +34,29 @@ import java.util.Random;
  * Use the {@link QuestionFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class QuestionFragment extends Fragment {
 
     private static final int NUM_PAGES = 6;
 
-    private TextView mQuestionView;
-    private RadioButton mButtonChoice1;
-    private RadioButton mButtonChoice2;
-    private RadioButton mButtonChoice3;
+    public TextView mQuestionView;
+    public RadioButton mButtonChoice1;
+    public RadioButton mButtonChoice2;
+    public RadioButton mButtonChoice3;
+    public RadioGroup radioGroup;
 
-    private String question;
-    private String correct;
-    private String wrongAnswerOne;
-    private String wrongAnswerTwo;
+    public String question;
+    public String correct;
+    public String correctAnswer;
+    public String wrongAnswerOne;
+    public String wrongAnswerTwo;
 
-
-    private int mScore = 0;
-    private int mQuestionNumber = 0;
-
+    public int mScore = 0;
+    public int mQuestionNumber = 0;
 
     public QuestionFragment() {
         // Required empty public constructor
     }
-
 
     public static QuestionFragment newInstance(int position) {
         QuestionFragment fragment = new QuestionFragment();
@@ -69,91 +69,99 @@ public class QuestionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_start_quiz);
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         View rootView = inflater.inflate(R.layout.fragment_question, container, false);
         mQuestionView = (TextView) rootView.findViewById(R.id.quizQuestion);
         mButtonChoice1 = (RadioButton) rootView.findViewById(R.id.option1);
         mButtonChoice2 = (RadioButton) rootView.findViewById(R.id.option2);
         mButtonChoice3 = (RadioButton) rootView.findViewById(R.id.option3);
+        radioGroup = (RadioGroup) rootView.findViewById(R.id.radiogroup);
+
+       if (getArguments() != null) {
+            question = getArguments().getString("question");
+            mQuestionView.setText(question);
+
+            correct = getArguments().getString("correct");
+            correctAnswer = correct;
+            mButtonChoice1.setText(correct);
+            Log.i("onViewCreated", String.valueOf(mButtonChoice1.getText()));
+
+            wrongAnswerOne = getArguments().getString("wrongAnswerOne");
+            mButtonChoice2.setText(wrongAnswerOne);
+
+            wrongAnswerTwo = getArguments().getString("wrongAnswerTwo");
+            mButtonChoice3.setText(wrongAnswerTwo);
+
+       }
+
+        clearSelection();
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            RadioButton buttonPressed;
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                Log.i("in listener", "in OnCheckedChanged()");
+                Log.i("checkedId", String.valueOf(checkedId));
+                Log.i("R.id.option1", String.valueOf(R.id.option1));
+                Log.i("R.id.option2", String.valueOf(R.id.option2));
+                Log.i("R.id.option3", String.valueOf(R.id.option3));
+
+                RadioButton selectedButton = rootView.findViewById(group.getCheckedRadioButtonId());
+
+                String answerSelection = (String) selectedButton.getText();
+
+                Log.i("answer selection", answerSelection);
+
+                if (checkedId == R.id.option1) {
+                    Log.i("mbuttonchoice1text", String.valueOf(mButtonChoice1.getText()));
+                    buttonPressed = mButtonChoice1;
+                }
+                if (checkedId == R.id.option2) {
+                    Log.i("mbuttonchoice2text", String.valueOf(mButtonChoice2.getText()));
+                    buttonPressed = mButtonChoice2;
+                }
+                if (checkedId == R.id.option3) {
+                    Log.i("mbuttonchoice3text", String.valueOf(mButtonChoice3.getText()));
+                    buttonPressed = mButtonChoice3;
+                }
+
+                Log.i("button pressed", String.valueOf(buttonPressed.getText()));
+                Log.i("correct", String.valueOf(correct) );
+
+                if (buttonPressed.getText() == correct) {
+                    Log.i("onCheckedChanged()", "selected answer was correct");
+                }
+            }
+
+        });
+
 
         return rootView;
 
     }
 
+    /*
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        if (getArguments() != null) {
-            question = getArguments().getString("question");
-            mQuestionView.setText(question);
-            Log.i("test", question);
-            correct = getArguments().getString("correct");
-            mButtonChoice1.setText(correct);
-            Log.i("test", correct);
-            wrongAnswerOne = getArguments().getString("wrongAnswerOne");
-            mButtonChoice2.setText(wrongAnswerOne);
-            Log.i("test", wrongAnswerOne);
-            wrongAnswerTwo = getArguments().getString("wrongAnswerTwo");
-            mButtonChoice3.setText(wrongAnswerTwo);
-            Log.i("test", wrongAnswerTwo);
-        }
-
-        RadioGroup radioGroup = view.findViewById(R.id.radiogroup);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // checkedId is the RadioButton selected
-                RadioButton rb=(RadioButton)view.findViewById(checkedId);
-
-                if (checkedId == R.id.option1 && mButtonChoice1.getText().toString().equals(correct)) {
-                    Log.i("score", "score is going up");
-                    mScore++;
-                }
-                if (checkedId == R.id.option2 && mButtonChoice2.getText().toString().equals(correct)) {
-                    Log.i("score", "score is going up");
-                    mScore++;
-                }
-                if (checkedId == R.id.option3 && mButtonChoice3.getText().toString().equals(correct)) {
-                    Log.i("score", "score is going up");
-                    mScore++;
-                }
-            }
-        });
-
-
     }
 
-    // idea  one
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
+     */
 
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.option1:
-                if (checked && mButtonChoice1.getText().equals(correct))
-                    mScore += 1;
-                    break;
-            case R.id.option2:
-                if (checked && mButtonChoice2.getText().equals(correct))
-                    mScore += 1;
-                    break;
-            case R.id.option3:
-                if (checked && mButtonChoice3.getText().equals(correct))
-                    mScore += 1;
-                    break;
-        }
+    private void clearSelection(){
+        if(radioGroup != null) radioGroup.clearCheck();
+    }
+
+    private String getCorrectAnswer() {
+        return correctAnswer;
     }
 
 }
@@ -188,6 +196,7 @@ class MyAdapter extends FragmentStateAdapter {
                 countryObjectArray[i] = newCountry;
                 i++;
             }
+            in_s.close();
         } catch (Exception e) {
             Log.e( "question fragment adapter my adapter constructor", e.toString() );
         }
