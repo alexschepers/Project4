@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class StartQuizActivity extends AppCompatActivity {
+
+    ViewPager2 viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,11 @@ public class StartQuizActivity extends AppCompatActivity {
                     .commit();
         }
          */
+
+        viewPager = findViewById(R.id.pager);
+        MyAdapter myPagerAdapter = new MyAdapter(this, 6);
+        viewPager.setAdapter(myPagerAdapter);
+
 
 
 
