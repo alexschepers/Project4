@@ -114,13 +114,15 @@ public class QuestionFragment extends Fragment {
            }
        }
 
-       Log.i("onCreateView: " , "1");
-        return rootView;
+       //Log.i("onCreateView: " , "1");
+
+       return rootView;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        Log.i("onViewCreated", "2");
+        //Log.i("onViewCreated", "2");
+
         super.onViewCreated(view, savedInstanceState);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -158,18 +160,15 @@ public class QuestionFragment extends Fragment {
     private void clearSelection(){
         if(radioGroup != null) {
             radioGroup.clearCheck();
-            Log.i("clear ", "cleared");
+            //Log.i("clear ", "cleared");
         } else {
-            Log.i("clear ", "not cleared");
+            //Log.i("clear ", "not cleared");
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        //Log.i("onPause", "question that was paused: " + mQuestionView.getText());
-        //Log.i("correctAnswer", correctAnswer);
-        //Log.i("userSelected", userChoice);
     }
 
 }
@@ -234,19 +233,16 @@ class MyAdapter extends FragmentStateAdapter {
 
     @Override
     public Fragment createFragment(int position) {
-        Log.i("createFragment", "new fragment at " + position + " is being created.");
+        //Log.i("createFragment", "new fragment at " + position + " is being created.");
 
         QuestionFragment questionFragment = QuestionFragment.newInstance(position + 1);
         Bundle bundle = new Bundle();
         bundle.putString("question", questionArray.get(position));
-        //Log.i("bundle", bundle.getString("question"));
         bundle.putString("correct", correctAnswerArray.get(position));
-        //Log.i("bundle", bundle.getString("correct"));
         bundle.putString("wrongAnswerOne", wrongAnswerOneArray.get(position));
-        //Log.i("bundle", bundle.getString("wrongAnswerOne"));
         bundle.putString("wrongAnswerTwo", wrongAnswerTwoArray.get(position));
-        //Log.i("bundle", bundle.getString("wrongAnswerTwo"));
         bundle.putInt("score", (int) quiz.getScore());
+
         questionFragment.setArguments(bundle);
 
         return questionFragment;
@@ -256,5 +252,6 @@ class MyAdapter extends FragmentStateAdapter {
     public int getItemCount() {
         return NUM_PAGES;
     }
+
 
 }
