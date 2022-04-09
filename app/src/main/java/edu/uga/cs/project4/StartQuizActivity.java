@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 public class StartQuizActivity extends AppCompatActivity {
 
+    int score = 0;
     ViewPager2 viewPager;
 
     @Override
@@ -27,15 +28,19 @@ public class StartQuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_quiz);
 
-
-        QuestionFragment questionFragment = new QuestionFragment();
-        questionFragment.setArguments(savedInstanceState);
-        getSupportFragmentManager().beginTransaction().replace( android.R.id.content, questionFragment).commit();
-
         viewPager = findViewById(R.id.pager);
         MyAdapter myPagerAdapter = new MyAdapter(this, 6);
         viewPager.setAdapter(myPagerAdapter);
-
     }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void updateScore() {
+        score += 1;
+    }
+
+
 
 }

@@ -114,11 +114,13 @@ public class QuestionFragment extends Fragment {
            }
        }
 
+       Log.i("onCreateView: " , "1");
         return rootView;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        Log.i("onViewCreated", "2");
         super.onViewCreated(view, savedInstanceState);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -138,29 +140,36 @@ public class QuestionFragment extends Fragment {
                 }
                 Log.i("XXXcorrectAnswer", correctAnswer);
                 Log.i("XXXuserChoice", userChoice);
+                updateScore(correctAnswer, userChoice);
             }
 
         });
-
-        updateScore(correctAnswer, userChoice);
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        clearSelection();
     }
 
     private void updateScore(String correctAnswer, String choice) {
         if (correctAnswer.equals(choice) && correctAnswer != "") {
             mScore += 1;
+            ((StartQuizActivity)getActivity()).updateScore();
         }
-        Log.i("score ", String.valueOf(mScore));
+        int testing = ((StartQuizActivity)getActivity()).getScore();
+        Log.i("global_variable_score", String.valueOf(testing));
     }
 
     private void clearSelection(){
-        if(radioGroup != null) radioGroup.clearCheck();
+        if(radioGroup != null) {
+            radioGroup.clearCheck();
+            Log.i("clear ", "cleared");
+        } else {
+            Log.i("clear ", "not cleared");
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //Log.i("onPause", "question that was paused: " + mQuestionView.getText());
+        //Log.i("correctAnswer", correctAnswer);
+        //Log.i("userSelected", userChoice);
     }
 
 }
@@ -225,17 +234,18 @@ class MyAdapter extends FragmentStateAdapter {
 
     @Override
     public Fragment createFragment(int position) {
+        Log.i("createFragment", "new fragment at " + position + " is being created.");
 
         QuestionFragment questionFragment = QuestionFragment.newInstance(position + 1);
         Bundle bundle = new Bundle();
         bundle.putString("question", questionArray.get(position));
-        Log.i("bundle", bundle.getString("question"));
+        //Log.i("bundle", bundle.getString("question"));
         bundle.putString("correct", correctAnswerArray.get(position));
-        Log.i("bundle", bundle.getString("correct"));
+        //Log.i("bundle", bundle.getString("correct"));
         bundle.putString("wrongAnswerOne", wrongAnswerOneArray.get(position));
-        Log.i("bundle", bundle.getString("wrongAnswerOne"));
+        //Log.i("bundle", bundle.getString("wrongAnswerOne"));
         bundle.putString("wrongAnswerTwo", wrongAnswerTwoArray.get(position));
-        Log.i("bundle", bundle.getString("wrongAnswerTwo"));
+        //Log.i("bundle", bundle.getString("wrongAnswerTwo"));
         bundle.putInt("score", (int) quiz.getScore());
         questionFragment.setArguments(bundle);
 
