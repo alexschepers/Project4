@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         startQuizButton.setOnClickListener( new startButtonClickListener());
 
         viewResultsButton = findViewById(R.id.viewResults);
-        //viewResultsButton.setOnClickListener( new resultsButtonClickListener());
+        viewResultsButton.setOnClickListener( new resultsButtonClickListener());
 
     }
 
@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
             /**
              * Creating a new intent to start the new activity for the button.
              */
-            //Intent intent = new Intent( view.getContext(),viewQuizResultsActivity.class );
-            //startActivity( intent );
+            Intent intent = new Intent( view.getContext(),ViewQuizResultsActivity.class );
+            startActivity( intent );
         }
     }
 

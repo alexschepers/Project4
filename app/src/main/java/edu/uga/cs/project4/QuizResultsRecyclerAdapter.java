@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * This is an adapter class for the RecyclerView to show all job leads.
  */
-public class QuizResultsRecyclerAdapter extends RecyclerView.Adapter<QuizResultsRecyclerAdapter.CountryHolder> {
+public class QuizResultsRecyclerAdapter extends RecyclerView.Adapter<QuizResultsRecyclerAdapter.QuizHolder> {
 
     public static final String DEBUG_TAG = "CountryRecyclerAdapter";
 
@@ -22,33 +22,33 @@ public class QuizResultsRecyclerAdapter extends RecyclerView.Adapter<QuizResults
     }
 
     // The adapter must have a ViewHolder class to "hold" one item to show.
-    class CountryHolder extends RecyclerView.ViewHolder {
+    class QuizHolder extends RecyclerView.ViewHolder {
 
         TextView quizNum;
         TextView date;
 
-        public CountryHolder(View itemView ) {
+        public QuizHolder(View itemView ) {
             super(itemView);
 
-            quizNum = (TextView) itemView.findViewById( R.id.quizNum );
+            quizNum = (TextView) itemView.findViewById( R.id.score );
             date = (TextView) itemView.findViewById( R.id.date );
         }
     }
 
     @Override
-    public CountryHolder onCreateViewHolder(ViewGroup parent, int viewType ) {
+    public QuizHolder onCreateViewHolder(ViewGroup parent, int viewType ) {
         // We need to make sure that all CardViews have the same, full width, allowed by the parent view.
         // This is a bit tricky, and we must provide the parent reference (the second param of inflate)
         // and false as the third parameter (don't attach to root).
         // Consequently, the parent view's (the RecyclerView) width will be used (match_parent).
         View view = LayoutInflater.from( parent.getContext()).inflate( R.layout.activity_view_quiz_results, parent, false );
-        return new CountryHolder( view );
+        return new QuizHolder( view );
     }
 
     // This method fills in the values of a holder to show a JobLead.
     // The position parameter indicates the position on the list of jobs list.
     @Override
-    public void onBindViewHolder( CountryHolder holder, int position ) {
+    public void onBindViewHolder( QuizHolder holder, int position ) {
         Quiz country = quizList.get( position );
 
         Log.d( DEBUG_TAG, "onBindViewHolder: " + country );
