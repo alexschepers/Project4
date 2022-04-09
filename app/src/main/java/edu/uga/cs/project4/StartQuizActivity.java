@@ -20,11 +20,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StartQuizActivity extends AppCompatActivity {
 
     int score = 0;
     ViewPager2 viewPager;
+    Quiz quiz = new Quiz();
+
+    private QuizData quizData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class StartQuizActivity extends AppCompatActivity {
                     Log.i("onPageSelected", "going into if statement");
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
+                    quiz.setScore(score);
                 }
             }
 
@@ -57,6 +62,12 @@ public class StartQuizActivity extends AppCompatActivity {
             }
         });
 
+        quizData = new QuizData ( this );
+        quiz.setScore(score);
+
+
+        //new QuizDBWriter.execute( quiz );
+
     }
 
     public int getScore() {
@@ -65,6 +76,29 @@ public class StartQuizActivity extends AppCompatActivity {
 
     public void updateScore() {
         score += 1;
+    }
+
+    // This is an AsyncTask class (it extends AsyncTask) to perform DB writing of a job lead, asynchronously.
+    public class QuizDBWriter extends AsyncTask<Quiz, Quiz> {
+
+        // This method will run as a background process to write into db.
+        // It will be automatically invoked by Android, when we call the execute method
+        // in the onClick listener of the Save button.
+        @Override
+        protected Quiz doInBackground( Quiz... quizzes ) {
+            quizData.storeQuiz( quizzes[0] );
+            return quizzes[0];
+        }
+
+        // This method will be automatically called by Android once the writing to the database
+        // in a background process has finished.  Note that doInBackground returns a JobLead object.
+        // That object will be passed as argument to onPostExecute.
+        // onPostExecute is like the notify method in an asynchronous method call discussed in class.
+        @Override
+        protected void onPostExecute( Quiz jobLead ) {
+
+        }
+
     }
 
 

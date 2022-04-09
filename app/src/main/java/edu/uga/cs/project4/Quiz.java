@@ -52,4 +52,8 @@ public class Quiz {
         return timeStamp;
     }
 
+    public String getTime() {
+        return time;
+    }
+
 }

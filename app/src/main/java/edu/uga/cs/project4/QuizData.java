@@ -22,10 +22,8 @@ public class QuizData {
     private SQLiteOpenHelper quizDbHelper;
     private static final String[] allColumns = {
             QuizDBHelper.QUIZ_COLUMN_ID,
-            QuizDBHelper.QUIZ_COLUMN_NAME,
-            QuizDBHelper.QUIZ_COLUMN_CONTINENT,
-            QuizDBHelper.QUIZ_COLUMN_DATE,
-            QuizDBHelper.QUIZ_COLUMN_SCORE
+            QuizDBHelper.QUIZ_COLUMN_SCORE,
+            QuizDBHelper.QUIZ_COLUMN_TIME
 
     };
 
@@ -75,8 +73,10 @@ public class QuizData {
                         // get all attribute values of this country
                         columnIndex = cursor.getColumnIndex( QuizDBHelper.QUIZ_COLUMN_ID );
                         long id = cursor.getLong( columnIndex );
-                        columnIndex = cursor.getColumnIndex( QuizDBHelper.QUIZ_COLUMN_NAME );
+                        columnIndex = cursor.getColumnIndex( QuizDBHelper.QUIZ_COLUMN_SCORE );
                         String name = cursor.getString( columnIndex );
+                        columnIndex = cursor.getColumnIndex( QuizDBHelper.QUIZ_COLUMN_TIME );
+                        String time = cursor.getString( columnIndex );
                         //String comments = cursor.getString( columnIndex );
 
                         // create a new Country object and set its state to the retrieved values
@@ -114,7 +114,8 @@ public class QuizData {
         // This is how we are providing persistence to a JobLead (Java object) instance
         // by storing it as a new row in the database table representing job leads.
         ContentValues values = new ContentValues();
-        values.put( QuizDBHelper.QUIZ_COLUMN_NAME, quiz.getId());
+        values.put( QuizDBHelper.QUIZ_COLUMN_SCORE, quiz.getScore());
+        values.put( QuizDBHelper.QUIZ_COLUMN_TIME, quiz.getTime());
 
 
         // Insert the new row into the database table;

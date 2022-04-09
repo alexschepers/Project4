@@ -27,10 +27,10 @@ public class QuizDBHelper extends SQLiteOpenHelper {
     // This will be useful if we want to change these names later.
     public static final String TABLE_QUIZ = "quiz";
     public static final String QUIZ_COLUMN_ID = "_id";
-    public static final String QUIZ_COLUMN_NAME = "name";
-    public static final String QUIZ_COLUMN_CONTINENT = "continent";
-    public static final String QUIZ_COLUMN_DATE = "date" ;
+    //public static final String QUIZ_COLUMN_CONTINENT = "continent";
+    //public static final String QUIZ_COLUMN_DATE = "date" ;
     public static final String QUIZ_COLUMN_SCORE = "score" ;
+    public static final String QUIZ_COLUMN_TIME = "time";
 
 
     // This is a reference to the only instance for the helper.
@@ -41,8 +41,9 @@ public class QuizDBHelper extends SQLiteOpenHelper {
     // automatically generate unique id values as keys.
     private static final String CREATE_QUIZ =
             "create table " + TABLE_QUIZ + " ("
-                    + QUIZ_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + QUIZ_COLUMN_NAME + " TEXT "
+            + QUIZ_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + QUIZ_COLUMN_SCORE + " TEXT, "
+            + QUIZ_COLUMN_TIME + " TEXT"
                     + ")";
 
     // Note that the constructor is private!
