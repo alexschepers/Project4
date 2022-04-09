@@ -65,7 +65,7 @@ public class StartQuizActivity extends AppCompatActivity {
         quizData = new QuizData ( this );
         quiz.setScore(score);
 
-
+        // this is where I can't figure out how to store the quiz
         //new QuizDBWriter.execute( quiz );
 
     }
