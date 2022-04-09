@@ -45,11 +45,12 @@ public class QuestionFragment extends Fragment {
     public RadioButton mButtonChoice3;
     public RadioGroup radioGroup;
 
-    public String question;
-    public String correct;
-    public String correctAnswer;
-    public String wrongAnswerOne;
-    public String wrongAnswerTwo;
+    public String question = "";
+    public String correct = "";
+    public String correctAnswer = "";
+    public String wrongAnswerOne = "";
+    public String wrongAnswerTwo = "";
+    public String userChoice = "";
 
     public int mScore = 0;
     public int mQuestionNumber = 0;
@@ -83,85 +84,83 @@ public class QuestionFragment extends Fragment {
         radioGroup = (RadioGroup) rootView.findViewById(R.id.radiogroup);
 
        if (getArguments() != null) {
-            question = getArguments().getString("question");
-            mQuestionView.setText(question);
+           question = getArguments().getString("question");
+           correct = getArguments().getString("correct");
+           wrongAnswerOne = getArguments().getString("wrongAnswerOne");
+           wrongAnswerTwo = getArguments().getString("wrongAnswerTwo");
 
-            correct = getArguments().getString("correct");
-            correctAnswer = correct;
-            mButtonChoice1.setText(correct);
-            Log.i("onViewCreated", String.valueOf(mButtonChoice1.getText()));
+           mQuestionView.setText(question);
 
-            wrongAnswerOne = getArguments().getString("wrongAnswerOne");
-            mButtonChoice2.setText(wrongAnswerOne);
+           // randomly assigning answers to buttons
+           Random rand = new Random();
+           int upperbound = 100;
+           int randomInt = rand.nextInt(upperbound);
 
-            wrongAnswerTwo = getArguments().getString("wrongAnswerTwo");
-            mButtonChoice3.setText(wrongAnswerTwo);
-
+           if (randomInt % 3 == 5) {
+               mButtonChoice1.setText(correct);
+               mButtonChoice2.setText(wrongAnswerOne);
+               mButtonChoice3.setText(wrongAnswerTwo);
+               correctAnswer = "first";
+           } else if (randomInt % 2 == 0) {
+               mButtonChoice1.setText(wrongAnswerTwo);
+               mButtonChoice2.setText(wrongAnswerOne);
+               mButtonChoice3.setText(correct);
+               correctAnswer = "third";
+           } else {
+               mButtonChoice1.setText(wrongAnswerOne);
+               mButtonChoice2.setText(correct);
+               mButtonChoice3.setText(wrongAnswerTwo);
+               correctAnswer = "second";
+           }
        }
 
-        clearSelection();
-
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-            RadioButton buttonPressed;
-
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.i("in listener", "in OnCheckedChanged()");
-                Log.i("checkedId", String.valueOf(checkedId));
-                Log.i("R.id.option1", String.valueOf(R.id.option1));
-                Log.i("R.id.option2", String.valueOf(R.id.option2));
-                Log.i("R.id.option3", String.valueOf(R.id.option3));
-
-                RadioButton selectedButton = rootView.findViewById(group.getCheckedRadioButtonId());
-
-                String answerSelection = (String) selectedButton.getText();
-
-                Log.i("answer selection", answerSelection);
-
-                if (checkedId == R.id.option1) {
-                    Log.i("mbuttonchoice1text", String.valueOf(mButtonChoice1.getText()));
-                    buttonPressed = mButtonChoice1;
-                }
-                if (checkedId == R.id.option2) {
-                    Log.i("mbuttonchoice2text", String.valueOf(mButtonChoice2.getText()));
-                    buttonPressed = mButtonChoice2;
-                }
-                if (checkedId == R.id.option3) {
-                    Log.i("mbuttonchoice3text", String.valueOf(mButtonChoice3.getText()));
-                    buttonPressed = mButtonChoice3;
-                }
-
-                Log.i("button pressed", String.valueOf(buttonPressed.getText()));
-                Log.i("correct", String.valueOf(correct) );
-
-                if (buttonPressed.getText() == correct) {
-                    Log.i("onCheckedChanged()", "selected answer was correct");
-                }
-            }
-
-        });
-
-
         return rootView;
-
     }
-
-    /*
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int correctId = radioGroup.getCheckedRadioButtonId();
+
+                if (correctId == R.id.option1) {
+                    userChoice = "first";
+                }
+                if (correctId == R.id.option2) {
+                    userChoice = "second";
+                }
+                if (correctId == R.id.option3) {
+                    userChoice = "third";
+                }
+                Log.i("XXXcorrectAnswer", correctAnswer);
+                Log.i("XXXuserChoice", userChoice);
+            }
+
+        });
+
+        updateScore(correctAnswer, userChoice);
+
     }
 
-     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        clearSelection();
+    }
+
+    private void updateScore(String correctAnswer, String choice) {
+        if (correctAnswer.equals(choice) && correctAnswer != "") {
+            mScore += 1;
+        }
+        Log.i("score ", String.valueOf(mScore));
+    }
 
     private void clearSelection(){
         if(radioGroup != null) radioGroup.clearCheck();
-    }
-
-    private String getCorrectAnswer() {
-        return correctAnswer;
     }
 
 }
@@ -169,6 +168,7 @@ public class QuestionFragment extends Fragment {
 class MyAdapter extends FragmentStateAdapter {
 
     private final int NUM_PAGES;
+    Quiz quiz = new Quiz();
 
     ArrayList<String> questionArray;
     ArrayList<String> correctAnswerArray;
@@ -191,7 +191,9 @@ class MyAdapter extends FragmentStateAdapter {
             countryObjectArray = new Country[196];
             while( ( nextRow = reader.readNext() ) != null ) {
                 String countryName = nextRow[0];
+                //Log.i("while loop country", countryName);
                 String continentName = nextRow[1];
+                //Log.i("while loop continent", continentName);
                 Country newCountry = new Country(countryName, continentName);
                 countryObjectArray[i] = newCountry;
                 i++;
@@ -234,6 +236,7 @@ class MyAdapter extends FragmentStateAdapter {
         Log.i("bundle", bundle.getString("wrongAnswerOne"));
         bundle.putString("wrongAnswerTwo", wrongAnswerTwoArray.get(position));
         Log.i("bundle", bundle.getString("wrongAnswerTwo"));
+        bundle.putInt("score", (int) quiz.getScore());
         questionFragment.setArguments(bundle);
 
         return questionFragment;

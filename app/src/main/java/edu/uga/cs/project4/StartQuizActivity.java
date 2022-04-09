@@ -32,7 +32,6 @@ public class StartQuizActivity extends AppCompatActivity {
         questionFragment.setArguments(savedInstanceState);
         getSupportFragmentManager().beginTransaction().replace( android.R.id.content, questionFragment).commit();
 
-
         viewPager = findViewById(R.id.pager);
         MyAdapter myPagerAdapter = new MyAdapter(this, 6);
         viewPager.setAdapter(myPagerAdapter);

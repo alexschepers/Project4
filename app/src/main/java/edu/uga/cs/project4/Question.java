@@ -22,8 +22,6 @@ public class Question {
     public Question(Country country) {
         this.country = country;
         this.correctAnswer = country.getContinent();
-
-        // need to be changed later, just for testing purposes
         this.wrongAnswerOne = getFirstWrongAnswer();
         this.wrongAnswerTwo = getSecondWrongAnswer();
     }
