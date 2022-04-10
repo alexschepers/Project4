@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -29,6 +30,8 @@ public class StartQuizActivity extends AppCompatActivity {
     Quiz quiz = new Quiz();
 
     private QuizData quizData;
+    Button b;
+    TextView swipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,35 +42,50 @@ public class StartQuizActivity extends AppCompatActivity {
         MyAdapter myPagerAdapter = new MyAdapter(this, 6);
         viewPager.setAdapter(myPagerAdapter);
 
+        quizData = new QuizData(this);
+
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                //Log.i("position", String.valueOf(position));
+                //Log.i("viewpager", String.valueOf(viewPager.getAdapter().getItemCount()));
+                int check = position + 1;
+                if (check == viewPager.getAdapter().getItemCount()) {
+                    //Log.i("onPageSelected", "going into if statement");
+                    b = findViewById(R.id.button);
+                    b.setVisibility(View.VISIBLE);
+                    b.setOnClickListener( new ButtonClickListener());
 
-            }
+                    swipe = findViewById(R.id.swipeHelp);
+                    swipe.setVisibility(View.INVISIBLE);
 
-            @Override
-            public void onPageSelected(int position) {
-                if (position == viewPager.getAdapter().getItemCount() - 1) {
-                    Log.i("onPageSelected", "going into if statement");
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                    quiz.setScore(score);
                 }
             }
 
             @Override
+            public void onPageSelected(int position) {
+            }
+            @Override
             public void onPageScrollStateChanged(int state) {
-
 
             }
         });
 
-        quizData = new QuizData ( this );
-        quiz.setScore(score);
+    }
 
-        // this is where I can't figure out how to store the quiz
-        //new QuizDBWriter.execute( quiz );
+    private class ButtonClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
 
+            quiz.setScore(score);
+            Log.i("quiz final score", String.valueOf(quiz.getScore()));
+
+            // Store this new job lead in the database asynchronously,
+            // without blocking the UI thread.
+            new QuizDBWriter().execute( quiz);
+        }
     }
 
     public int getScore() {
