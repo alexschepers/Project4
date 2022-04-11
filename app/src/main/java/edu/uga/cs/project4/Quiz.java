@@ -10,7 +10,7 @@ public class Quiz {
     //private Question[] questions;
     private String time;
 
-    public Quiz() {
+    public Quiz(int score, String time) {
         this.id = -1;
         this.score = 0;
         //this.questions = null;

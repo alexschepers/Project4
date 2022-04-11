@@ -1,23 +1,16 @@
 package edu.uga.cs.project4;
 
 import android.annotation.SuppressLint;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -176,7 +169,9 @@ public class QuestionFragment extends Fragment {
 class MyAdapter extends FragmentStateAdapter {
 
     private final int NUM_PAGES;
-    Quiz quiz = new Quiz();
+    private int score;
+    private String time;
+    Quiz quiz = new Quiz(score, time);
 
     ArrayList<String> questionArray;
     ArrayList<String> correctAnswerArray;

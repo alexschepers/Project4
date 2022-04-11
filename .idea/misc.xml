@@ -4,13 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/maggi/AndroidStudioProjects/Project4/app/src/main/res/layout/activity_main.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/maggi/AndroidStudioProjects/Project4/app/src/main/res/layout/activity_view_quiz_results.xml" value="0.18115942028985507" />
+        <entry key="..\:/Users/maggi/AndroidStudioProjects/Project4/app/src/main/res/layout/fragment_add_quiz_result_dialog.xml" value="0.25" />
+        <entry key="..\:/Users/maggi/AndroidStudioProjects/Project4/app/src/main/res/layout/fragment_question.xml" value="0.25" />
+        <entry key="..\:/Users/maggi/AndroidStudioProjects/Project4/app/src/main/res/layout/quiz.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33881886800130206" />
         <entry key="app/src/main/res/layout/activity_start_quiz.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_view_quiz_results.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/fragment_question.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/fragment_quiz.xml" value="0.23055555555555557" />
-        <entry key="app/src/main/res/layout/quiz.xml" value="0.23981481481481481" />
-        <entry key="app/src/main/res/layout/sample_quiz_view.xml" value="0.23981481481481481" />
         <entry key="app/src/main/res/layout/view_pager.xml" value="0.3098958333333333" />
       </map>
     </option>

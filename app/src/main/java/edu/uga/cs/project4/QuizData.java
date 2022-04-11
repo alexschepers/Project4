@@ -16,6 +16,7 @@ import java.util.List;
 public class QuizData {
 
     public static final String DEBUG_TAG = "QuizData";
+    public static int score;
 
     // this is a reference to our database; it is used later to run SQL commands
     private static SQLiteDatabase db;
@@ -80,7 +81,7 @@ public class QuizData {
                         //String comments = cursor.getString( columnIndex );
 
                         // create a new Country object and set its state to the retrieved values
-                        Quiz quiz = new Quiz();
+                        Quiz quiz = new Quiz(score, time);
                         quiz.setId(id); // set the id (the primary key) of this object
                         // add it to the list
                         quizzes.add( quiz );
