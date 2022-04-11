@@ -2,6 +2,10 @@ package edu.uga.cs.project4;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public class Question {
@@ -12,7 +16,6 @@ public class Question {
     private String wrongAnswerOne;
     private String wrongAnswerTwo;
 
-    String continentArray[] = {"Asia", "Antarctica", "Africa", "Australia", "Europe", "North America", "South America"};
 
     public Question() {
         this.id = -1;
@@ -41,35 +44,52 @@ public class Question {
     }
 
     public String getFirstWrongAnswer() {
+        List<String> continentList = Collections.synchronizedList(new ArrayList<>());
+        continentList.add("Asia");
+        continentList.add("Antarctica");
+        continentList.add("Africa");
+        continentList.add("Australia");
+        continentList.add("Europe");
+        continentList.add("North America");
+        continentList.add("South America");
+        //String continentArray[] = {"Asia", "Antarctica", "Africa", "Australia", "Europe", "North America", "South America"};
+
         String returnString = "";
 
         Random randomNum = new Random();
-        int upper = continentArray.length;
+
+        continentList.remove(correctAnswer);
+
+        int upper = continentList.size();
         int rand = randomNum.nextInt(upper);
 
-        if (continentArray[rand] != correctAnswer) {
-            returnString = continentArray[rand];
-        } else {
-            rand = randomNum.nextInt(upper);
-            returnString = continentArray[rand];
-        }
+        returnString = continentList.get(rand);
 
         return returnString;
     }
 
     public String getSecondWrongAnswer() {
+
+        List<String> continentList = Collections.synchronizedList(new ArrayList<>());
+        continentList.add("Asia");
+        continentList.add("Antarctica");
+        continentList.add("Africa");
+        continentList.add("Australia");
+        continentList.add("Europe");
+        continentList.add("North America");
+        continentList.add("South America");
+
         String returnString = "";
 
         Random randomNum = new Random();
-        int upper = continentArray.length;
+
+        continentList.remove(correctAnswer);
+        continentList.remove(wrongAnswerOne);
+
+        int upper = continentList.size();
         int rand = randomNum.nextInt(upper);
 
-        if (continentArray[rand] != correctAnswer && continentArray[rand] != wrongAnswerTwo) {
-            returnString = continentArray[rand];
-        } else {
-            rand = randomNum.nextInt(upper);
-            returnString = continentArray[rand];
-        }
+        returnString = continentList.get(rand);
 
         return returnString;
     }

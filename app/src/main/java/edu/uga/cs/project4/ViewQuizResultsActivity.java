@@ -32,7 +32,7 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        quizResultsList = new ArrayList<Quiz>();
+        quizResultsList = new ArrayList<>();
         recyclerAdapter = new QuizResultsRecyclerAdapter( quizResultsList );
         recyclerView.setAdapter( recyclerAdapter );
 
@@ -74,8 +74,8 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
         // onPostExecute is like the notify method in an asynchronous method call discussed in class.
         @Override
         protected void onPostExecute( List<Quiz> jList ) {
-            //recyclerAdapter = new JobLeadRecyclerAdapter( jList );
-            //recyclerView.setAdapter( recyclerAdapter );
+            recyclerAdapter = new QuizResultsRecyclerAdapter( jList );
+            recyclerView.setAdapter( recyclerAdapter );
             Log.d( DEBUG_TAG, "jList.size(): " + jList.size() );
             quizResultsList.addAll(jList);
             recyclerAdapter.notifyDataSetChanged();
@@ -107,16 +107,18 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
             Log.d( DEBUG_TAG, "Quiz saved: " + quiz );
         }
     }
+    /*
 
     // this is our own callback for a DialogFragment which adds a new job lead.
-//    public void onFinishNewJobLeadDialog(Country country) {
-//        // add the new job lead
-//        new CountryDBWriter().execute( country );
-//    }
+    public void onFinishNewJobLeadDialog(Country country) {
+        // add the new job lead
+        new CountryDBWriter().execute( country );
+    }
 
     void showDialogFragment( DialogFragment newFragment ) {
         newFragment.show( getSupportFragmentManager(), null);
     }
+     */
 
     @Override
     protected void onResume() {

@@ -24,13 +24,13 @@ public class QuizResultsRecyclerAdapter extends RecyclerView.Adapter<QuizResults
     // The adapter must have a ViewHolder class to "hold" one item to show.
     class QuizHolder extends RecyclerView.ViewHolder {
 
-        TextView quizNum;
+        TextView score;
         TextView date;
 
         public QuizHolder(View itemView ) {
             super(itemView);
 
-            quizNum = (TextView) itemView.findViewById( R.id.score );
+            score = (TextView) itemView.findViewById( R.id.score );
             date = (TextView) itemView.findViewById( R.id.date );
         }
     }
@@ -49,9 +49,12 @@ public class QuizResultsRecyclerAdapter extends RecyclerView.Adapter<QuizResults
     // The position parameter indicates the position on the list of jobs list.
     @Override
     public void onBindViewHolder( QuizHolder holder, int position ) {
-        Quiz country = quizList.get( position );
+        Quiz quiz = quizList.get( position );
 
-        Log.d( DEBUG_TAG, "onBindViewHolder: " + country );
+        //holder.score.setText((int) quiz.getScore());
+        //holder.date.setText(quiz.getTime());
+
+        Log.d( DEBUG_TAG, "onBindViewHolder: " + quiz );
 
     }
 

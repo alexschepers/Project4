@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="Swip left to move to the next question" />
+        android:text="Swipe left to move to the next question" />
 
     <Button
         android:id="@+id/button"

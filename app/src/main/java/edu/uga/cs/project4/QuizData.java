@@ -68,8 +68,9 @@ public class QuizData {
             if( cursor != null && cursor.getCount() > 0 ) {
 
                 while( cursor.moveToNext() ) {
+                    Log.i("cursor", "next row");
 
-                    if( cursor.getColumnCount() >= 5) {
+                    if( cursor.getColumnCount() >= 3) {
 
                         // get all attribute values of this country
                         columnIndex = cursor.getColumnIndex( QuizDBHelper.QUIZ_COLUMN_ID );
@@ -88,6 +89,7 @@ public class QuizData {
                         Log.d(DEBUG_TAG, "Retrieved quiz: " + quiz);
                     }
                 }
+
             }
             if( cursor != null )
                 Log.d( DEBUG_TAG, "Number of records from DB: " + cursor.getCount() );

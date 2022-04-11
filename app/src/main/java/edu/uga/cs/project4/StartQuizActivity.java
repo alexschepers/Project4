@@ -64,11 +64,10 @@ public class StartQuizActivity extends AppCompatActivity {
     private class ButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-
             quiz.setScore(score);
             Log.i("quiz final score", String.valueOf(quiz.getScore()));
+            //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            //startActivity(intent);
 
             // Store this new job lead in the database asynchronously,
             // without blocking the UI thread.
@@ -105,6 +104,26 @@ public class StartQuizActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d( "StartQuizActivity", "StartQuizActivity.onResume()" );
+        // open the database in onResume
+        if( quizData != null )
+            quizData.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d( "StartQuizActivity", "StartQuizActivity.onPause()" );
+        // close the database in onPause
+        if( quizData != null )
+            quizData.close();
+
+        Log.i("SCORE", String.valueOf(quiz.getScore()));
+        super.onPause();
     }
 
 
