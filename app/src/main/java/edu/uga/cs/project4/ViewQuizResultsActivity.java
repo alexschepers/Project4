@@ -31,9 +31,11 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
         // use a linear layout manager for the recycler view
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
 
         quizResultsList = new ArrayList<>();
         recyclerAdapter = new QuizResultsRecyclerAdapter( quizResultsList );
+
         recyclerView.setAdapter( recyclerAdapter );
 
         // Create a JobLeadsData instance, since we will need to save a new JobLead to the dn.

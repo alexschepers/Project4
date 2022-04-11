@@ -51,8 +51,8 @@ public class QuizResultsRecyclerAdapter extends RecyclerView.Adapter<QuizResults
     public void onBindViewHolder( QuizHolder holder, int position ) {
         Quiz quiz = quizList.get( position );
 
-        //holder.score.setText((int) quiz.getScore());
-        //holder.date.setText(quiz.getTime());
+        // holder.score.setText((int) quiz.getScore());
+        // holder.date.setText(quiz.getTime());
 
         Log.d( DEBUG_TAG, "onBindViewHolder: " + quiz );
 
