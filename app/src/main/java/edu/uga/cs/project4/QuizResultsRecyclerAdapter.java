@@ -41,7 +41,7 @@ public class QuizResultsRecyclerAdapter extends RecyclerView.Adapter<QuizResults
         // This is a bit tricky, and we must provide the parent reference (the second param of inflate)
         // and false as the third parameter (don't attach to root).
         // Consequently, the parent view's (the RecyclerView) width will be used (match_parent).
-        View view = LayoutInflater.from( parent.getContext()).inflate( R.layout.activity_view_quiz_results, parent, false );
+        View view = LayoutInflater.from( parent.getContext()).inflate( R.layout.quiz, parent, false );
         return new QuizHolder( view );
     }
 
@@ -51,8 +51,8 @@ public class QuizResultsRecyclerAdapter extends RecyclerView.Adapter<QuizResults
     public void onBindViewHolder( QuizHolder holder, int position ) {
         Quiz quiz = quizList.get( position );
 
-        // holder.score.setText((int) quiz.getScore());
-        // holder.date.setText(quiz.getTime());
+        holder.score.setText( String.valueOf(quiz.getScore()));
+        holder.date.setText(String.valueOf(quiz.getTime()));
 
         Log.d( DEBUG_TAG, "onBindViewHolder: " + quiz );
 

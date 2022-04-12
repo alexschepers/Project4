@@ -16,7 +16,7 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
     public static final String DEBUG_TAG = "ViewQuizResultsActivity";
 
     private RecyclerView recyclerView;
-    private QuizResultsRecyclerAdapter recyclerAdapter;
+    public QuizResultsRecyclerAdapter recyclerAdapter;
 
     private QuizData quizData = null;
     private List<Quiz> quizResultsList = null;
@@ -31,15 +31,14 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
         // use a linear layout manager for the recycler view
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
+        //recyclerView.setHasFixedSize(true);
 
-        quizResultsList = new ArrayList<>();
+        quizResultsList = new ArrayList<Quiz>();
         recyclerAdapter = new QuizResultsRecyclerAdapter( quizResultsList );
-
         recyclerView.setAdapter( recyclerAdapter );
 
-        // Create a JobLeadsData instance, since we will need to save a new JobLead to the dn.
-        // Note that even though more activites may create their own instances of the JobLeadsData
+        // Create a QuizData instance, since we will need to save a new JobLead to the dn.
+        // Note that even though more activities may create their own instances of the JobLeadsData
         // class, we will be using a single instance of the JobLeadsDBHelper object, since
         // that class is a singleton class.
         quizData = new QuizData( this );
@@ -75,52 +74,25 @@ public class ViewQuizResultsActivity extends AppCompatActivity {
         // values for the RecyclerView.
         // onPostExecute is like the notify method in an asynchronous method call discussed in class.
         @Override
-        protected void onPostExecute( List<Quiz> jList ) {
-            recyclerAdapter = new QuizResultsRecyclerAdapter( jList );
+        protected void onPostExecute( List<Quiz> qList ) {
+            recyclerAdapter = new QuizResultsRecyclerAdapter( qList );
             recyclerView.setAdapter( recyclerAdapter );
-            Log.d( DEBUG_TAG, "jList.size(): " + jList.size() );
-            quizResultsList.addAll(jList);
+            Log.d( DEBUG_TAG, "jList.size(): " + qList.size() );
+            quizResultsList.addAll(qList);
             recyclerAdapter.notifyDataSetChanged();
         }
     }
 
-    // This is an AsyncTask class (it extends AsyncTask) to perform DB writing of a job lead, asynchronously.
-    public class QuizDBWriter extends AsyncTask<Quiz, Quiz> {
-
-        // This method will run as a background process to write into db.
-        // It will be automatically invoked by Android, when we call the execute method
-        // in the onClick listener of the Save button.
-        @Override
-        protected Quiz doInBackground( Quiz... quizzes ) {
-            quizData.storeQuiz( quizzes[0] );
-            return quizzes[0];
-        }
-
-        // This method will be automatically called by Android once the writing to the database
-        // in a background process has finished.  Note that doInBackground returns a JobLead object.
-        // That object will be passed as argument to onPostExecute.
-        // onPostExecute is like the notify method in an asynchronous method call discussed in class.
-        @Override
-        protected void onPostExecute( Quiz quiz ) {
-            // Update the recycler view to include the new job lead
-            quizResultsList.add( quiz );
-            recyclerAdapter.notifyItemInserted(quizResultsList.size() - 1);
-
-            Log.d( DEBUG_TAG, "Quiz saved: " + quiz );
-        }
-    }
-    /*
-
-    // this is our own callback for a DialogFragment which adds a new job lead.
-    public void onFinishNewJobLeadDialog(Country country) {
+    // this is our own callback for a DialogFragment which adds a new quiz.
+    /*public void onFinishNewJobLeadDialog(Country country) {
         // add the new job lead
-        new CountryDBWriter().execute( country );
+        new QuizDBWriter().execute( country );
     }
 
     void showDialogFragment( DialogFragment newFragment ) {
         newFragment.show( getSupportFragmentManager(), null);
-    }
-     */
+    }*/
+
 
     @Override
     protected void onResume() {

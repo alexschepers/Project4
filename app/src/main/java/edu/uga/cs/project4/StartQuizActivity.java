@@ -66,8 +66,8 @@ public class StartQuizActivity extends AppCompatActivity {
         public void onClick(View v) {
             quiz.setScore(score);
             Log.i("quiz final score", String.valueOf(quiz.getScore()));
-            //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            //startActivity(intent);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
 
             // Store this new job lead in the database asynchronously,
             // without blocking the UI thread.

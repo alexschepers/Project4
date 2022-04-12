@@ -12,9 +12,9 @@ public class Quiz {
 
     public Quiz(int score, String time) {
         this.id = -1;
-        this.score = 0;
+        this.score = score;
         //this.questions = null;
-        this.time = setTime();
+        this.time = time;
     }
 
     public Quiz(Question[] questions) {
@@ -32,16 +32,16 @@ public class Quiz {
         this.id = id;
     }
 
-    public long getScore() {
-        return score;
+    public int getScore() {
+        return (int) score;
     }
 
     // not sure how to calculate score at this point
-    public void setScore(long score) {
+    public void setScore(int score) {
         this.score = score;
     }
 
-    public void updateScore(long score) {
+    public void updateScore(int score) {
         score += 1;
     }
 
