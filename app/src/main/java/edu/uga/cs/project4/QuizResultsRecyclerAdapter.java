@@ -24,12 +24,14 @@ public class QuizResultsRecyclerAdapter extends RecyclerView.Adapter<QuizResults
     // The adapter must have a ViewHolder class to "hold" one item to show.
     class QuizHolder extends RecyclerView.ViewHolder {
 
+        TextView quizNum;
         TextView score;
         TextView date;
 
         public QuizHolder(View itemView ) {
             super(itemView);
 
+            quizNum = (TextView) itemView.findViewById(R.id.quizNum);
             score = (TextView) itemView.findViewById( R.id.score );
             date = (TextView) itemView.findViewById( R.id.date );
         }
@@ -51,8 +53,9 @@ public class QuizResultsRecyclerAdapter extends RecyclerView.Adapter<QuizResults
     public void onBindViewHolder( QuizHolder holder, int position ) {
         Quiz quiz = quizList.get( position );
 
-        holder.score.setText( String.valueOf(quiz.getScore()));
-        holder.date.setText(String.valueOf(quiz.getTime()));
+        holder.quizNum.setText("Quiz Number: " + String.valueOf(quiz.getId()));
+        holder.score.setText("Score: " + String.valueOf(quiz.getScore()));
+        holder.date.setText("Date: " + String.valueOf(quiz.getTime()));
 
         Log.d( DEBUG_TAG, "onBindViewHolder: " + quiz );
 

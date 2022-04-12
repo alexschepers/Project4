@@ -76,7 +76,7 @@ public class QuizData {
                         columnIndex = cursor.getColumnIndex( QuizDBHelper.QUIZ_COLUMN_ID );
                         long id = cursor.getLong( columnIndex );
                         columnIndex = cursor.getColumnIndex( QuizDBHelper.QUIZ_COLUMN_SCORE );
-                        String name = cursor.getString( columnIndex );
+                        int score = cursor.getInt( columnIndex );
                         columnIndex = cursor.getColumnIndex( QuizDBHelper.QUIZ_COLUMN_TIME );
                         String time = cursor.getString( columnIndex );
                         //String comments = cursor.getString( columnIndex );

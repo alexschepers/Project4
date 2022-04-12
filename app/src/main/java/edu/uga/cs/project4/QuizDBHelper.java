@@ -27,8 +27,6 @@ public class QuizDBHelper extends SQLiteOpenHelper {
     // This will be useful if we want to change these names later.
     public static final String TABLE_QUIZ = "quiz";
     public static final String QUIZ_COLUMN_ID = "_id";
-    //public static final String QUIZ_COLUMN_CONTINENT = "continent";
-    //public static final String QUIZ_COLUMN_DATE = "date" ;
     public static final String QUIZ_COLUMN_SCORE = "score" ;
     public static final String QUIZ_COLUMN_TIME = "time";
 

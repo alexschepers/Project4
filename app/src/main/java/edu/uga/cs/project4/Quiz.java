@@ -14,7 +14,7 @@ public class Quiz {
         this.id = -1;
         this.score = score;
         //this.questions = null;
-        this.time = time;
+        this.time = setTime();
     }
 
     public Quiz(Question[] questions) {
